@@ -36,7 +36,11 @@ func ValidateFields(err error) []ValidationError{
 			}
 		}
 	}
+	if err, ok := err.(ValidationError); ok {
+        m[0] = err
+    }
     return m
+    
 }
 func createMessage(e string, f string) ValidationError {
 	m := new(ValidationError)
