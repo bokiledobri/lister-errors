@@ -7,8 +7,12 @@ import (
 )
 
 type ValidationError struct{
-    Error string `json:"error"`
+    Message string `json:"message"`
     Field string `json:"field,omitempty"`
+}
+
+func (v *ValidationError) Error() string{
+   return fmt.Sprintf("%s: %s", v.Field, v.Message)
 }
 
 func ValidateFields(err error) []ValidationError{
@@ -37,7 +41,7 @@ func ValidateFields(err error) []ValidationError{
 func createMessage(e string, f string) ValidationError {
 	m := new(ValidationError)
 	m.Field = f
-	m.Error = e
+	m.Message = e
 	return *m
 }
 
