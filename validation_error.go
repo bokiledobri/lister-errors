@@ -35,10 +35,13 @@ func ValidateFields(err error) []ValidationError{
 				m = append(m, createMessage(v.Field(), v.ActualTag()))
 			}
 		}
+    return m
 	}
 	if err, ok := err.(ValidationError); ok {
         m = append(m, err)
+    return m
     }
+    m = append(m, ValidationError{Message: err.Error()})
     return m
     
 }
